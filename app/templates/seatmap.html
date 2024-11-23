@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Seating - FLYODA</title>
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="page">
+        <!-- Page banner -->
+        <div class="banner">
+            <div class="banner-contents">
+                <a class="banner-logo-wrapper" href="/">
+                    <img class="banner-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo">
+                </a>
+                <div class="banner-spacer"></div>
+                <a class="banner-icon-wrapper" href="/search">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/back-arrow.svg') }}" alt="Back">
+                </a>
+                <a class="banner-icon-wrapper" href="">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/hamburger-menu.svg') }}" alt="Menu">
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Form to submit seat selection -->
+        <div style="padding-top: 25px;" class="page-content page-content-long">
+            <form class="seat-map-form" method="POST">
+                <label for="seat"></label>
+                <select class="seat-map-input" id="seat" name="seat" onchange="if(this.value) { this.form.submit(); }" required>
+                    <option disabled selected hidden value="">Select seat</option>
+                    {% for seat in available_seats %}
+                        <option value="{{ seat[1] }}">{{ seat[1] }} - {{ seat[3] }}</option>
+                    {% endfor %}
+                </select>
+
+            </form>
+
+            <!-- The seat map image -->
+            <div class="seat-map-image">
+                <!-- Show the seat and seat price if valid seat is entered -->
+                {% if selected_seat %}
+                    <div class="seat-information-box">
+                        <p class="seat-information-box-text">Seat {{ selected_seat[1] }}</p>
+                        <p class="seat-information-box-text">{{ selected_seat[3] }}</p>
+                        <div class="seat-information-box-bottom">
+                            <div class="seat-information-box-price-box">
+                                <p class="seat-information-box-text">${{ "%.2f"|format(selected_seat[2]) }}</p>
+                            </div>
+                            <!-- Confirm seat button that redirects to payment page -->
+                            <form action="{{ url_for('seat_confirm') }}" method="POST">
+                                <input type="hidden" name="flight_id" value="{{ selected_seat[0] }}">
+                                <input type="hidden" name="seat_designation" value="{{ selected_seat[1] }}">
+                                <button style="width: fit-content; padding: 10px 20px; margin: 25px 0 0 0" type="submit">Buy</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    </body>
+{% endblock %}

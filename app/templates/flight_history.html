@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>History - FLYODA</title>
+{% endblock %}
+
+{% block body %}
+    <body style="overflow-x: hidden">
+    <div class="page">
+        <!-- Page banner -->
+        <div class="banner">
+            <div class="banner-contents">
+                <a class="banner-logo-wrapper" href="/">
+                    <img class="banner-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo">
+                </a>
+                <div class="banner-spacer"></div>
+                <a class="banner-icon-wrapper" href="/search">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/back-arrow.svg') }}" alt="Back">
+                </a>
+                <a class="banner-icon-wrapper" href="">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/hamburger-menu.svg') }}" alt="Menu">
+                </a>
+            </div>
+        </div>
+
+        {% if cancel_purchase %}
+            <form class="flight-history-cancel-background" action="{{ url_for('cancel_purchase') }}" method="POST">
+                <div class="flight-history-cancel-content">
+                    <div style="display: flex">
+                        <p class="flight-history-cancel-title">Are you sure you want to cancel?</p>
+                        <a class="flight-history-cancel-close-icon" href="/history">
+                            <img class="banner-logo" src="{{ url_for('static', filename='img/x.svg') }}" alt="">
+                        </a>
+                    </div>
+                    <p class="flight-history-cancel-text">Cancelling your ticket is final.<br>(You can still buy another ticket for this flight)</p>
+
+
+                    <div class="flight-history-cancel-bottom-half">
+                        <p class="flight-history-class" style="margin: 0 0 10px 18px">
+                            {{ cancel_purchase[8] }}
+                        </p>
+                        <div class="flight-history-cancel-bottom-half-row">
+                            <p class="flight-history-price">
+                                ${{ "%.2f"|format(cancel_purchase[4]) }}
+                            </p>
+                            <p class="flight-history-date" style="align-self: center; margin-left: 15px">
+                                {{ cancel_purchase[7] }}
+                            </p>
+                            <input type="hidden" name="purchase-number" value="{{ cancel_purchase[1] }}">
+                            <button type="submit" style="margin: 0 0 0 auto; align-self: flex-end">I'm sure</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+
+        <div class=" page-content page-content-long">
+            <p class="search-form-header">Flight History</p>
+            <div class="flight-result-list">
+                {% if not history %}
+                    <p style="font-size: 30px" class="error">No flight history</p>
+                {% else %}
+                    {% for history_entry in history %}
+                        <form class="flight-history-result" method="POST">
+                            <input type="hidden" name="purchase-number" value="{{ history_entry[11] }}">
+                            <div class="flight-history-time-block">
+                                <div class="flight-history-time-airport">
+                                    <p class="flight-history-time">
+                                        {{ history_entry[8] }}
+                                    </p>
+                                    <p class="flight-history-airport">
+                                        {{ history_entry[4] }}
+                                    </p>
+                                </div>
+                                <div class="flight-history-time-airport">
+                                    <p class="flight-history-time">
+                                        {{ history_entry[9] }}
+                                    </p>
+                                    <p class="flight-history-airport">
+                                        {{ history_entry[5] }}
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="flight-history-date">
+                                {% if history_entry[13] == "Success" %}
+                                    {{ history_entry[6] }}
+                                {% else %}
+                                    <em style="color: var(--textred)">Cancelled</em>
+                                {% endif %}
+                            </p>
+                            <div class="flight-history-line"></div>
+                            <div class="flight-history-right">
+                                <p class="flight-history-class">
+                                    {{ history_entry[10] }}
+                                </p>
+                                <p class="flight-history-price">
+                                    ${{ "%.2f"|format(history_entry[12]) }}
+                                </p>
+                                <div class="flight-history-icons">
+                                    <a href="{{ pass }}">
+                                        <img class="flight-history-icon" src="{{ url_for('static', filename='img/info.svg') }}" alt="">
+                                    </a>
+                                    {% if history_entry[13] == "Success" %}
+                                        <button class="image-button" type="submit">
+                                            <img class="flight-history-icon" src="{{ url_for('static', filename='img/cancel.svg') }}" alt="">
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Checkout - FLYODA</title>
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="page">
+        <!-- Page banner -->
+        <div class="banner">
+            <div class="banner-contents">
+                {# <a href="/">#}
+                {# <img class="banner-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo">#}
+                {# </a>#}
+                <div class="banner-spacer"></div>
+                <div class="banner-icon-wrapper" style="cursor: pointer" onclick="history.back()">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/back-arrow.svg') }}" alt="Back">
+                </div>
+                <a class="banner-icon-wrapper" href="">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/hamburger-menu.svg') }}" alt="Menu">
+                </a>
+            </div>
+        </div>
+
+        <div style="padding-top: 25px;" class="page-content page-content-small">
+            <form class="payment-content" method="POST">
+                <!-- Left Side -->
+                <div class="payment-content-left">
+                    <img class="payment-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="">
+
+                    <div class="input-box"><label for="card-number" class="input-box-label">Card Number<br></label>
+                        <input style="width: 100%; box-sizing: border-box" type="password" id="card-number" name="card-number" pattern="^[0-9]{15,16}$" placeholder="Enter card number" required>
+                    </div>
+
+                    <div class="input-double">
+                        <div class="input-box" style="flex: 40%"><label for="cvv" class="input-box-label">CVV<br></label>
+                            <input style="width: 100%; box-sizing: border-box" type="password" id="cvv" name="cvv" pattern="^[0-9]{3}$" placeholder="Enter" required>
+                        </div>
+
+                        <div class="input-box"><label for="expiration" class="input-box-label">Expiration<br></label>
+                            <input style="width: 100%; box-sizing: border-box;" type="month" id="expiration" name="expiration" placeholder="Select date" autocomplete="cc-exp" required>
+                        </div>
+                    </div>
+
+                    <div class="input-box"><label for="name" class="input-box-label">Name on Card<br></label>
+                        <input style="width: 100%; box-sizing: border-box" type="text" id="name" name="name" placeholder="Enter name" autocomplete="name" required>
+                    </div>
+
+                    <div class="input-box"><label for="billing-address" class="input-box-label">Billing Address<br></label>
+                        <input style="width: 100%; box-sizing: border-box" type="text" id="billing-address" name="billing-address" placeholder="Enter billing address" autocomplete="address-line1" required>
+                    </div>
+
+                    <div class="input-double">
+                        <div class="input-box"><label for="province" class="input-box-label">Province<br></label>
+                            <div class="select-box" style="width: 100%; box-sizing: border-box">
+                                <select id="province" name="province" style="width: 100%;" required>
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Alberta"> Alberta</option>
+                                    <option value="British Columbia"> British Columbia</option>
+                                    <option value="Manitoba"> Manitoba</option>
+                                    <option value="New Brunswick"> New Brunswick</option>
+                                    <option value="Newfoundland and Labrador"> Newfoundland and Labrador</option>
+                                    <option value="Nova Scotia"> Nova Scotia</option>
+                                    <option value="Ontario"> Ontario</option>
+                                    <option value="Prince Edward Island"> Prince Edward Island</option>
+                                    <option value="Quebec"> Quebec</option>
+                                    <option value="Saskatchewan"> Saskatchewan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-box"><label for="postal-code" class="input-box-label">Postal Code<br></label>
+                            <input style="width: 100%; box-sizing: border-box" type="text" id="postal-code" name="postal-code" pattern="^[A-Za-z][\d][A-Za-z][\s-]*[\d][A-Za-z][\d]$" placeholder="Enter" autocomplete="postal-code" required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Side -->
+                <div class="payment-content-right">
+                    <p style="text-align: right; font-size: 30px; margin: 25px 0 70px 0">You’re just a <em>few steps away</em> from booking your next flight!</p>
+                    <div class="payment-summary-box">
+                        <div class="payment-summary-header">
+                            <p class="payment-summary-header-text">Seat {{ seat[1] }} - {{ seat[3] }}</p>
+                        </div>
+                        <p style="text-decoration: underline; margin-bottom: 10px">Summary</p>
+                        {% set price = seat[2] %}
+                        <p>Ticket: ${{ "%.2f"|format(price) }}</p>
+                        {% set tax = price*0.13 %}
+                        <p>Tax: ${{ "%.2f"|format(tax) }}</p>
+                        {% set fee = price*0.05 %}
+                        <p>Service Fee: ${{ "%.2f"|format(fee) }}</p>
+                        <hr style="width: 100%; height:3px; border-width:0; color: var(--textdefault); background-color: var(--textdefault)">
+                        {% set total = price + tax + fee %}
+                        <p>Total: ${{ "%.2f"|format(total) }}</p>
+                        <input type="hidden" name="total-price" value="{{ total }}">
+                    </div>
+                    <p style="font-size: 20px; margin:0; padding: 10px 50px 0 0">Why do we collect a <a class="hyperlink">Service Fee</a>?</p>
+
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; margin: auto 0 0 0">
+                        {% if payment_failed %}
+                            <p style="font-size: 20px" class="error">Your payment could not be completed. Please try again.</p>
+                        {% endif %}
+
+                        <button type="submit" style="margin: 20px 0 0 0">Purchase</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </body>
+{% endblock %}

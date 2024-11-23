@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Thank you! - FLYODA</title>
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="page" style="justify-content: center">
+        <div class="page-content payment-confirmation-content">
+            <img class="payment-confirmation-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="">
+            {% set day_last_digit = departure_day % 10 %}
+            {% set day_suffix = "st" if day_last_digit == 1 else ("nd" if day_last_digit == 2 else "th") %}
+            <p class="payment-confirmation-text"><em>Thank you!</em><br>Enjoy your flight from {{ origin }} to {{ destination }} on the {{ departure_day }}{{ day_suffix }} of {{ departure_month }}!</p>
+            <p class="payment-confirmation-text" style="font-size: 20px">A receipt has been sent to your email.</p>
+            <a href="/">
+                <button style="margin-bottom: 0">Continue</button>
+            </a>
+        </div>
+
+    </div>
+    </body>
+{% endblock %}

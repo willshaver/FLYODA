@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <title>Register - FLYODA</title>
+
+{% endblock %}
+
+{% block body %}
+    <body class="register-background">
+    <div class="register-page">
+        <div class="register-left">
+            <a class="register-logo-wrapper" href="/"><img class="register-logo" src="{{ url_for('static', filename='img/logo-full.svg') }}" alt=""></a>
+        </div>
+        <div class="register-right">
+            <!-- Form for registering an account -->
+            <form method="POST" class="page-content register-content">
+                <p class="register-greeting">Create a new account</p>
+
+                <div class="input-box"><label for="email" class="input-box-label">Email<br></label>
+                    <input type="email" id="email" name="email" placeholder="Enter email" required>
+                    {% if email_exists == True %}
+                        <p class="error">An account with that email already exists.</p>
+                    {% endif %}
+                </div>
+
+                <div class="input-box"><label for="password" class="input-box-label">Password<br></label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <div class="input-box"><label for="password-confirm" class="input-box-label">Confirm
+                    Password<br></label>
+                    <input type="password" id="password-confirm" name="password-confirm" placeholder="Enter password again" required>
+                    {% if password_mismatch == True %} <p class="error">Passwords must match.</p> {% endif %}
+                </div>
+
+                <div class="input-box"><label for="country" class="input-box-label">Country<br></label>
+                    <select id="country" name="country" required>
+                        <option value="" selected disabled hidden>Select Country</option>
+                        <option value="Canada">Canada</option>
+                    </select>
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="agree-terms" name="agree-terms" required>
+                    <label for="agree-terms">
+                        I agree to all <a>Terms and Conditions</a>.*
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="receive-promotions" name="receive-promotions">
+                    <label for="receive-promotions">
+                        Send me emails about <em>news</em> and <em>promotions</em>.
+                    </label>
+                </div>
+                <div style="display: flex; align-items: flex-end">
+                    <p style="margin: 20px auto 0 0">
+                        Already have an account?
+                        <a class="hyperlink"
+                           href="/login">Login</a>
+                        here!
+                    </p>
+                    <button type="submit" style="margin: 0 0">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </body>
+{% endblock %}

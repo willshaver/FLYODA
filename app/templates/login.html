@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <title>Login - FLYODA</title>
+
+{% endblock %}
+
+{% block body %}
+    <body class="login-background">
+    <div class="page login-page center-in-page">
+        <a class="login-logo-wrapper" href="/"><img class="login-logo" src="{{ url_for('static', filename='img/logo-full.svg') }}" alt=""></a>
+        <div class="login-content page-content">
+            <!-- Form for logging in to an account -->
+            <form method="POST" class="login-content-inner">
+                <p class="login-greeting">Login to your FL<em>YODA</em> account</p>
+                <div class="input-box"><label for="email" class="input-box-label">Email<br></label>
+                    <input type="email" id="email" name="email" placeholder="Enter email" required>
+                </div>
+                <div class="input-box"><label for="password" class="input-box-label">Password<br></label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                {% if password_incorrect == True %}
+                    <p class="error">Email and password do not match an account. Please try again.</p>
+                {% endif %}
+                <button type="submit">Login</button>
+                <p style="margin: 20px auto 0 0">
+                    Don't have an account?
+                    <a class="hyperlink"
+                       href="/register">Register</a>
+                    here!
+                </p>
+            </form>
+        </div>
+        <div class="login-buffer"></div>
+    </div>
+    </body>
+{% endblock %}

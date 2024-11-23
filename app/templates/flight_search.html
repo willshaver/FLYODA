@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <title>Search - FLYODA</title>
+
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="page">
+        <!-- Page banner -->
+        <div class="banner">
+            <div class="banner-contents">
+                <a class="banner-logo-wrapper" href="/">
+                    <img class="banner-logo" src="{{ url_for('static', filename='img/logo.svg') }}" alt="">
+                </a>
+                <div class="banner-spacer"></div>
+                <a class="banner-icon-wrapper" style="transform: scale(1.1)" href="/history">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/history.svg') }}" alt="Menu">
+                </a>
+                <a class="banner-icon-wrapper" href="{{ url_for('login') }}">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/user.svg') }}" alt="">
+                </a>
+                <a class="banner-icon-wrapper" href="">
+                    <img class="banner-icon" src="{{ url_for('static', filename='img/hamburger-menu.svg') }}" alt="Menu">
+                </a>
+            </div>
+        </div>
+
+        <datalist id="city-list">
+            <option>Toronto</option>
+            <option>London</option>
+            <option>New York</option>
+            <option>Paris</option>
+            <option>Chicago</option>
+            <option>Tokyo</option>
+            <option>San Francisco</option>
+            <option>Frankfurt</option>
+            <option>Los Angeles</option>
+            <option>Singapore</option>
+            <option>Dallas</option>
+            <option>Sydney</option>
+            <option>Dubai</option>
+            <option>Melbourne</option>
+            <option>Beijing</option>
+            <option>Auckland</option>
+            <option>Taipei</option>
+            <option>Kuala Lumpur</option>
+        </datalist>
+
+        <div class="page-content page-content-long">
+            <!-- Form to search for flights -->
+            <form method="POST" class="search-form">
+                <p class="search-form-header">Search for Flights</p>
+                <div class="search-form-row">
+                    <div class="input-box">
+                        <label>
+                            <input type="text" name="from" id="from" placeholder="From" value="{{ origin }}" list="city-list" required>
+                        </label>
+                    </div>
+                </div>
+                <div class="search-form-row">
+                    <div class="input-box">
+                        <label>
+                            <input type="text" name="to" id="to" placeholder="To" value="{{ destination }}" list="city-list" required>
+                        </label>
+                    </div>
+                    <div class="input-box">
+                        {#Amount of tickets: #}
+                        {#<label>#}
+                        {#<input type="number" name="tickets" placeholder="Amount" min="1" max="5">#}
+                        {#</label>#}
+                    </div>
+                </div>
+                <div class="search-form-row">
+                    <div class="input-box" style="flex: 100%"><label for="departure-date" class="input-box-label">Departure<br></label>
+                        <input type="date" name="departure-date" id="departure-date" value="{{ departure_date }}" required>
+                    </div>
+                    <div class="input-box" style="flex: 100%"><label for="return-date" class="input-box-label">Return<br></label>
+                        <input type="date" name="return-date" id="return-date" value="{{ return_date }}" required>
+                    </div>
+                    <button style="height: 50%; margin: 40px 0 0 0" type="submit">Search</button>
+                </div>
+            </form>
+            <br>
+            <!-- Result of search -->
+            <div class="flight-result-list">
+                {% if origin and not flights %}
+                    <p style="font-size: 30px" class="error">No flights found</p>
+                {% endif %}
+                {% for flight in flights %}
+                    <div class="flight-result">
+                        <div class="flight-result-left">
+                            <div class="flight-result-time-location">
+                                <p class="flight-result-time">{{ flight[8] }}</p>
+                                <p class="flight-result-location">{{ flight[4] }}</p>
+                            </div>
+                            <div class="flight-result-time-location">
+                                <p class="flight-result-time">{{ flight[9] }}</p>
+                                <p class="flight-result-location">{{ flight[5] }}</p>
+                            </div>
+                        </div>
+                        <div class="flight-result-right">
+                            <a href="{{ url_for('seats', flight_id=flight[0]) }}">
+                                <img class="flight-result-next" src="{{ url_for('static', filename='img/continue-arrow.svg') }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

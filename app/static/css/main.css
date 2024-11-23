@@ -1,0 +1,924 @@
+:root {
+
+    --flyodagreen: #85C16F;
+
+    --textdefault: #332F2F;
+    --textred: #D74F4F;
+    --linktext: #668e58;
+    --inputplaceholder: #C1C1C1;
+
+    --darkerwhite: #B5B5B5;
+
+    --background1: #D9D9D9;
+    --background2: #C7C6C6;
+
+    --page-width: 1250px;
+
+    --bold-text: 500;
+}
+
+body, html {
+    margin: 0;
+    background-color: var(--background1);
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 25px;
+    color: var(--textdefault);
+    height: 100vh;
+}
+
+body {
+    width: 100vw;
+    max-width: 100%;
+}
+
+em {
+    color: var(--linktext);
+    font-style: normal;
+}
+
+.error {
+    margin: 0;
+    color: var(--textred);
+}
+
+input[type=text], input[type=password], input[type=email], select {
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 35px;
+    font-weight: 300;
+
+    border: 2px solid var(--textdefault);
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-bottom: 5px;
+
+    appearance: none;
+}
+
+select {
+    cursor: pointer;
+    background: url("/static/img/dropdown-arrow.svg") right 20px center no-repeat white;
+}
+
+input[type="text"]::-webkit-calendar-picker-indicator, input[type="text"]:hover::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+
+select:required:invalid {
+    color: var(--inputplaceholder);
+}
+
+option {
+    color: var(--textdefault);
+}
+
+input[type=number] {
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 35px;
+    font-weight: 300;
+
+    border: 2px solid var(--textdefault);
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+    width: 175px;
+
+    margin-bottom: 5px;
+}
+
+input[type=button], button {
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    background-color: var(--flyodagreen);
+    font-size: 35px;
+    font-weight: 500;
+
+    border: 0;
+    padding: 15px 30px;
+    border-radius: 20px;
+    outline: none;
+    width: fit-content;
+
+    margin: 20px 0;
+    flex-shrink: 0;
+}
+
+input[type=button]:hover, button:hover {
+    background-color: var(--linktext);
+}
+
+button.image-button {
+    width: fit-content;
+    height: fit-content;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+input[type=checkbox] {
+    background: white;
+
+    border: 2px solid var(--textdefault);
+    margin: 0 0;
+    border-radius: 20px;
+    outline: none;
+    width: 60px;
+    height: 60px;
+
+    appearance: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    transform: scale(0);
+    transition: 60ms transform ease-out;
+    background: url("/static/img/checkmark.svg") top 19px center no-repeat;
+    background-size: auto;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1.2);
+    transition: 40ms transform ease-out;
+}
+
+.checkbox label {
+    margin: 0 10px;
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 25px;
+    font-weight: 300;
+}
+
+::placeholder {
+    color: var(--inputplaceholder);
+}
+
+input[type=date], input[type=month] {
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 35px;
+    font-weight: 300;
+
+    border: 2px solid var(--textdefault);
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+    width: 85%;
+
+    margin-bottom: 5px;
+}
+
+input[type=date]:invalid::-webkit-datetime-edit-text, input[type=date]:invalid::-webkit-datetime-edit-year-field, input[type=date]:invalid::-webkit-datetime-edit-month-field, input[type=date]:invalid::-webkit-datetime-edit-day-field {
+    color: var(--inputplaceholder);
+}
+
+input[type=month]:invalid::-webkit-datetime-edit-text, input[type=month]:invalid::-webkit-datetime-edit-year-field, input[type=month]:invalid::-webkit-datetime-edit-month-field, input[type=month]:invalid::-webkit-datetime-edit-day-field {
+    color: var(--inputplaceholder);
+}
+
+::-webkit-calendar-picker-indicator {
+    width: 20%;
+    background-position: right;
+    background-color: transparent;
+}
+
+/* || Everywhere */
+
+.page {
+    margin: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.page-content {
+    box-sizing: border-box;
+    overflow: auto;
+    height: fit-content;
+
+    background-color: var(--background2);
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.page-content-long {
+    max-width: var(--page-width);
+    padding: 50px 50px 0 50px;
+
+    flex-grow: 1;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.page-content-small {
+    max-width: var(--page-width);
+    padding: 50px;
+}
+
+.center-in-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* || Banners */
+.banner {
+    background-color: var(--background1);
+    margin: 0;
+    width: 100%;
+    height: 100px;
+    position: sticky;
+    top: 0;
+}
+
+.banner-contents {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    align-items: center;
+    max-width: var(--page-width);
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.banner-spacer {
+    max-width: var(--page-width);
+    margin: 0 auto;
+}
+
+.banner-logo-wrapper {
+    display: flex;
+    flex-shrink: 2;
+    box-sizing: border-box;
+    margin: 15px 0;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.banner-logo {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.banner-icon-wrapper {
+    display: flex;
+    width: 75px;
+    min-width: 50px;
+    margin: 15px 0;
+}
+
+.banner-icon {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.input-box {
+    margin: 0;
+}
+
+.input-box-label {
+    font-size: 35px;
+    margin: 5px auto;
+}
+
+.hyperlink, p a, label a {
+    color: var(--linktext);
+    font-style: normal;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+
+/* || Login Page */
+body.login-background {
+    background: url("/static/img/login-airplane-stock-image.png") center;
+    background-size: cover;
+    min-height: fit-content;
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.login-content {
+    width: clamp(100px, 100%, 670px);
+    height: fit-content;
+    margin: auto auto;
+    flex-shrink: 1;
+}
+
+.login-content input[type=email], .login-content input[type=password] {
+    max-width: 550px;
+}
+
+.login-content-inner {
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    height: 90%;
+    gap: 20px;
+}
+
+.login-greeting {
+    max-width: 450px;
+    margin: 0;
+    font-size: 50px;
+}
+
+.login-buffer {
+    margin: 25px;
+    height: 100px;
+    max-height: 200px;
+    min-height: 50px;
+    flex-shrink: 2;
+}
+
+.login-logo-wrapper {
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    margin: 25px;
+    height: 100px;
+    max-height: 200px;
+    min-height: 50px;
+    min-width: 181px;
+    flex-shrink: 2;
+}
+
+.login-logo {
+    height: 100%;
+    width: 100%;
+}
+
+/* || Register */
+body.register-background {
+    background: var(--background1);
+    background-size: cover;
+}
+
+.register-content input[type=text], .register-content input[type=password], .register-content input[type=email], .register-content select {
+    max-width: 550px;
+}
+
+.register-page {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100%;
+    box-sizing: border-box;
+
+}
+
+.register-left {
+    background: url("/static/img/register-airplane-stock-image.png") right;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    flex: 50%;
+    max-width: 50vw;
+    flex-shrink: 2;
+}
+
+.register-logo-wrapper {
+    left: 0;
+    top: 0;
+    margin: 25px;
+    min-width: 200px;
+    flex-shrink: 2;
+}
+
+.register-logo {
+    height: 100%;
+    width: 100%;
+}
+
+.register-right {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    flex: 50%;
+    max-width: 50vw;
+    align-self: center;
+
+    padding: 0 50px;
+    box-sizing: border-box;
+
+}
+
+.register-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+
+    margin: 0;
+    padding: 50px;
+
+    min-height: 1000px;
+    width: 900px;
+    gap: 15px;
+}
+
+.register-greeting {
+    font-weight: 500;
+    width: 100%;
+    margin: 0;
+    font-size: 50px;
+}
+
+/* || Mobile */
+@media (max-width: 1300px) {
+    .login-page {
+        overflow: auto;
+    }
+
+    .register-left {
+        display: none;
+    }
+
+    .register-right {
+        max-width: 100vw;
+        padding: 50px 0;
+    }
+
+    .register-page {
+        justify-content: center;
+    }
+}
+
+
+/* Search */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.search-form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-form-header {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0 0 20px 0;
+}
+
+
+.flight-result-list {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.flight-result {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: solid 2px var(--textdefault);
+    box-sizing: border-box;
+    margin: 10px auto;
+
+    height: 200px;
+    width: 100%;
+    justify-content: left;
+    border-radius: 20px;
+    padding-left: 2%;
+}
+
+.flight-result-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 90%;
+    width: 20%;
+}
+
+
+.flight-result-time-location {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: fit-content;
+
+}
+
+.flight-result-time {
+    border: solid 5px var(--darkerwhite);
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 45px;
+    font-weight: 600;
+    text-align: center;
+
+    padding: 5px 5px;
+    border-radius: 20px;
+    outline: none;
+    width: 170px;
+    height: fit-content;
+    box-sizing: border-box;
+
+    margin: 0;
+}
+
+.flight-result-location {
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: 700;
+    width: fit-content;
+    vertical-align: middle;
+}
+
+.flight-result-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 80%;
+    width: fit-content;
+    margin: 0 20px 0 auto;
+}
+
+
+/* Seat Map */
+.seat-map-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.button.back-button {
+    width: 75px;
+    margin: 15px;
+}
+
+
+.seat-map-image {
+    background: url("/static/img/seat-map.png") center bottom no-repeat;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+    border: solid 10px var(--darkerwhite);
+
+    overflow: hidden;
+    height: 833px;
+    width: 100%;
+}
+
+select.seat-map-input {
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 35px;
+    font-weight: 300;
+
+    border: 2px solid var(--textdefault);
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+
+    margin: 0 20px;
+    width: 50%;
+}
+
+.seat-information-box {
+    width: 320px;
+    margin: 30px;
+    border-radius: 20px;
+    border: 2px solid var(--textdefault);
+    background-color: white;
+    padding: 20px 20px;
+}
+
+.seat-information-box-text {
+    font-weight: 500;
+    font-size: 30px;
+    margin: 0;
+}
+
+.seat-information-box-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.seat-information-box-price-box {
+    border-radius: 20px;
+    border: solid 5px var(--darkerwhite);
+    height: fit-content;
+    width: fit-content;
+    padding: 20px 20px;
+}
+
+/* Payment */
+.payment-content {
+    display: flex;
+    height: 100%;
+}
+
+.payment-content-left {
+    display: flex;
+    flex-direction: column;
+    flex: 50%;
+    align-items: flex-start;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.payment-logo {
+    margin: 25px 0 25px 0;
+    height: 100px;
+    max-height: 75px;
+}
+
+.input-double {
+    display: inline-flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.payment-content-left > .input-box, .input-double > .input-box {
+    width: 100%;
+}
+
+.payment-content-right {
+    display: flex;
+    flex-direction: column;
+    flex: 50%;
+    align-items: flex-end;
+
+}
+
+.payment-summary-box {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 45%;
+    min-height: max-content;
+    background: var(--background1);
+    border-radius: 20px;
+    padding: 10px 50px 10px 50px;
+    box-sizing: border-box;
+    align-items: flex-end;
+    justify-content: space-evenly
+}
+
+.payment-summary-header {
+    border-radius: 15px;
+    border: solid 5px var(--darkerwhite);
+    height: fit-content;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 5px 5px;
+    align-self: center;
+}
+
+.payment-summary-header-text {
+    margin: 1px;
+    font-size: 30px;
+    font-weight: var(--bold-text);
+    text-align: center;
+}
+
+.payment-summary-box > p {
+    margin: 5px;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+/* Payment Confirmation */
+.payment-confirmation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    max-width: 750px;
+    min-width: 400px;
+    padding: 50px;
+}
+
+.payment-confirmation-logo {
+    align-self: flex-start;
+
+    margin: 0 0 25px 0;
+    max-width: 350px;
+    min-width: 200px;
+}
+
+.payment-confirmation-text {
+    font-size: 30px;
+    text-align: center;
+    max-width: 500px;
+}
+
+@media (max-width: 750px) {
+    .payment-confirmation-logo {
+        align-self: center;
+    }
+
+}
+
+
+/* Flight History */
+.flight-history-result {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: solid 2px var(--textdefault);
+    box-sizing: border-box;
+    margin: 10px auto;
+
+    height: 200px;
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding-left: 2%;
+}
+
+.flight-history-time-block {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    gap: 15px;
+}
+
+.flight-history-time-airport {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flight-history-time {
+    border: solid 5px var(--darkerwhite);
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 45px;
+    font-weight: 600;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 20px;
+    outline: none;
+    width: 170px;
+    height: fit-content;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.flight-history-airport {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 2px 0;
+}
+
+.flight-history-date {
+    font-size: 30px;
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+.flight-history-line {
+    border: 5px solid var(--background1);
+    border-radius: 30px;
+    height: 125px;
+    width: 0;
+}
+
+.flight-history-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.flight-history-class {
+    font-weight: 500;
+    font-size: 35px;
+}
+
+.flight-history-price {
+    border: solid 5px var(--darkerwhite);
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--textdefault);
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 20px;
+    outline: none;
+    width: 200px;
+    height: 120px;
+    line-height: 100px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.flight-history-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    margin-right: 15px;
+}
+
+.flight-history-cancel-background {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(5px);
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.flight-history-cancel-content {
+    display: flex;
+    flex-direction: column;
+
+    border: solid 3px var(--textdefault);
+    border-radius: 20px;
+    background: var(--background1);
+
+    box-sizing: border-box;
+
+    width: 1000px;
+    height: 450px;
+    padding: 20px;
+}
+
+.flight-history-cancel-title {
+    margin: 0 0 10px 0;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.flight-history-cancel-text {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.flight-history-cancel-close-icon {
+    align-self: flex-start;
+    width: 40px;
+    margin-left: auto;
+}
+
+.flight-history-cancel-bottom-half {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
+.flight-history-cancel-bottom-half-row {
+    display: flex;
+}
+

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <title>FLYODA</title>
+
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="page">
+        <div class="page-content page-content-long">
+            <div>
+                <h1 style="color: #85C16F">Welcome to FLYODA!</h1>
+                <h2 style="margin-bottom:100px;">your wisest travel booker</h2>
+                <h1>Enter something:</h1>
+                <form method="POST">
+                    <label>
+                        <input type="text" name="user_input" required>
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+                <a href="/login">Login</a>
+                <a href="/search">Search</a>
+                {% if user_input != None %}
+                    <h2>You entered: {{ user_input }}</h2>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+    </body>
+{% endblock %}
